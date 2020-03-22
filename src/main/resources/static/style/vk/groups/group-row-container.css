@@ -1,0 +1,153 @@
+.group-container {
+	
+	position: relative;
+	
+	box-shadow: 0 0 3.5px rgba(0, 0, 0, 0.5);
+	padding: 5;
+	padding-top: 8;
+	padding-bottom: 8;
+	margin-bottom: 10;
+	
+	display: flex;
+	
+	flex-direction: column;
+	
+	background: white;
+}
+
+.group-settings-container {
+
+	position: relative;
+
+	display: none;
+	opacity: 0;
+	
+	margin: 0.8vh 0.8vw 0.8vh 0.5vw;
+	
+	width: calc(100% - 1.3vw);
+	
+	flex-grow: 1;
+	
+	border-top: 1px solid lightgrey;
+	
+	box-sizing: border-box;
+}
+
+.group-settings-description {
+	
+	margin-left: 0.8vw;
+	margin-right: 0.8vw;
+	
+	line-height: calc(150% + 1px);
+}
+
+.group-settings-buttons-container {
+	
+	display: flex;
+	
+	position: absolute;
+	
+	bottom: 0;
+	right: 0;
+}
+
+.group-delete-button {
+	
+	flex-grow: 1;
+}
+
+.group-edit-button {
+	
+	flex-grow: 2;
+
+	margin-right: calc(0.8vw + 6px);
+}
+
+.group-row-container {
+	
+	position: relative;
+	
+	box-sizing: border-box;
+	
+	display: flex;
+	width: 100%;
+	min-width: 600px;
+	flex-direction: row;
+	
+	flex-grow: 0;
+}
+
+.group-row-icon {
+	
+	position: relative;
+	
+	margin: 0px 0.8vw 0px 0.5vw;
+	
+	min-width: 32px;
+	width: 32px;
+	height: 32px;
+	
+	cursor: pointer;
+}
+
+.group-row-name {
+
+	margin: 0px 0.8vw 0px 0.8vw;
+	flex-grow: 1;
+	width: 8vw;
+	
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.group-row-id {
+	
+	flex-grow: 1;
+	width: 8vw;
+}
+
+.group-row-ps {
+	
+	flex-grow: 1.75;
+	
+	width: 12vw;
+}
+
+.group-row-status {
+	
+	flex-grow: 1;
+	
+	width: 5vw;
+}
+
+.group-row-sub-container {
+	
+	position: relative;
+	
+	margin-left: 0.8vw;
+	margin-right: 0.8vw;
+	
+	min-width: 40px;
+	height: 20px;
+	
+	align-self: center;
+}
+
+.group-row-text {
+	
+	position: relative;
+	
+	font-family: Verdana;
+	font-size: 16;
+	color: #7892A3;	
+	
+	margin: 0px 0.8vw 0px 0.8vw;
+	
+	line-height: 200%;
+	
+	text-align: center;
+	vertical-align: middle;
+	
+	font-weight: 400;
+}

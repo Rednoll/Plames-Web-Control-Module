@@ -1,0 +1,230 @@
+<html>
+
+	<header><!-- load by JQuery --></header>
+
+	<style>
+
+		@import url("/resources/style/market/offers/offer-row-container.css");
+		@import url("/resources/style/market/offers/market-offer-checkbox.css");
+		@import url("/resources/style/market/offers/modal-background.css");
+		@import url("/resources/style/market/offers/modal-add-offer.css");
+		@import url("/resources/style/market/offers/market-offers.css");
+		@import url("/resources/style/market/offers/modal-add-offer-stacks.css");
+		@import url("/resources/style/common/price-currencies-editor.css");
+		@import url("/resources/style/default.css");
+	
+		#offers-list {
+	
+			position: relative;
+	
+			display: flex;
+			flex-direction: column;
+			
+			max-width: 1400px;
+			
+			width: 80vw;
+			
+			margin: auto;
+		}
+		
+		input::-webkit-input-placeholder {
+		
+			color: gray;
+			opacity: 0.35;
+		}
+
+	</style>
+		
+	<body onload="init();" style="padding-top: 85px; background: #F2F5F7;">
+	
+		<script src="/resources/scripts/market/offers/offer_ajax.js?1"></script>
+		<script src="/resources/scripts/market/offers/market_offers.js?1"></script>
+		<script src="/resources/scripts/common/price_currencies_editor.js?1"></script>
+		<script src="/resources/scripts/common/item_stacks_editor.js?1"></script>
+
+		<div id="offers-list">
+
+			<div class="offer-container">
+			
+				<div class="offer-row-container">
+				
+					<img class="offer-row-icon" style="margin: 0px 0.8vw 0px 0.5vw;" src="/resources/images/market/offers/search-icon.svg" onclick="toggleSearch();"/>
+					
+					<div class="offer-row-text offer-row-name">Название</div>
+					
+					<div class="offer-row-text offer-row-id">Идентификатор</div>
+					
+					<div class="offer-row-text offer-row-discount">Скидка</div>
+					
+					<div class="offer-row-text offer-row-status">Статус</div>
+					
+					<div class="offer-row-sub-container" style="max-width: 48px;">
+						<img class="offer-row-icon" src="/resources/images/market/offers/plus-icon.svg" onclick="location.href='/market/offers#modal-background-add-offer'"/>
+					</div>
+					
+				</div>
+			
+			</div>
+			
+			<div id="offer-search-row" class="offer-container" style="opacity: 0;" data-opened=false>
+			
+				<div class="offer-row-container">
+				
+					<img class="offer-row-icon" style="margin: 0px 0.8vw 0px 0.5vw; opacity: 0;" src="/resources/images/market/items/search-icon.svg"/>
+					
+					<input id="offer-search-name" class="offer-row-text custom-text-field offer-row-name" placeholder="стрелы" oninput="sendSearchRequest();"></input>
+					
+					<input id="offer-search-id" class="offer-row-text custom-text-field offer-row-id" placeholder="10" oninput="sendSearchRequest();"></input>
+					
+					<div class="offer-row-text offer-row-discount" style="opacity: 0;">Скидка</div>
+					
+					<div class="offer-row-text offer-row-status" style="opacity: 0;">Статус</div>
+
+					<div class="offer-row-sub-container" style="max-width: 48px; opacity: 0;">
+						<img class="offer-row-icon"/>
+					</div>
+				
+				</div>
+			
+			</div>
+			
+			<div id="offer-prototype" style="display: none;" data-opened=false>
+			
+				<div class="offer-row-container">
+					
+					<img class="offer-row-icon" src="/resources/images/market/offers/cart-icon.svg" onclick="toggleOfferRow($(this).parent().parent());"/>
+					
+					<div class="offer-row-text offer-row-name"></div>
+					
+					<div class="offer-row-text offer-row-id"></div>
+					
+					<div class="offer-row-text offer-row-discount"></div>
+					
+					<div class="offer-row-text offer-row-status"></div>
+					
+					<div class="offer-row-sub-container" style="max-width: 48px;">
+						
+						<input type="checkbox" class="offer-status-toggle" style="display:none" onclick="ajaxOfferActiveSave(this);"/>
+						<label class="offer-status-toggle-label"><span></span></label>
+					
+					</div>
+				
+				</div>
+				
+				<div class="offer-data-container">
+					
+					<p class = "custom-text offer-data-description">Сбор данных</p>
+					
+					<div class="offer-data-buttons-container">
+						
+						<a class="custom-button offer-edit-button" onclick="openModalEditOffer($(this).closest('.offer-container').attr('data-offer-id'));">Редактировать</a>
+						
+						<a class="custom-button-cancel offer-delete-button" onclick="deleteOfferById($(this).closest('.offer-container').attr('data-offer-id')); setTimeout(()=> location.reload(), 500);">Удалить</a>
+				
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<div class="offer-container">
+			
+				<div class="offer-row-container" style="justify-content: center;">
+					
+					<a id="scroll-prevent-page" style="flex-grow: 0; width: 4vw; margin-right: 2vw;" class="custom-sub-button" onclick="preventPage();">&lt;</a>
+					
+					<input id="scroll-page-field" style="flex-grow: 0; width: 8vw; text-align: center;" class="custom-text-field" onclick="goPage($(this).val());" value="0"></input>
+					
+					<a id="scroll-next-page" style="flex-grow: 0; width: 4vw; margin-left: 2vw;" class="custom-sub-button" onclick="nextPage();">&gt;</a>
+					
+				</div>
+				
+			</div>
+
+		</div>
+		
+		<div id="modal-background-add-offer" class="modal-background">
+			
+			<div id="modal-add-offer" class="modal">
+			
+				<div id="modal-add-offer-top-container" class="modal-offer-top-container">
+					
+					<img id="modal-add-offer-icon" class="modal-offer-icon" src="/resources/images/market/offers/cart-icon.svg" />
+				
+					<input class="modal-offer-name custom-text-field" id="modal-add-offer-name" placeholder="Название"></input>
+				
+				</div>
+				
+				<div id="modal-add-offer-table" class="modal-offer-table">
+				
+					<div id="add-stacks-list" class="modal-offer-table-row stacks-list"><!-- load by JQuery --></div>
+					
+					<div id="add-currencies-list" class="modal-offer-table-row currencies-list" data-custom-auto=true data-custom-auto-default=true><!-- load by JQuery --></div>
+
+					<div class="modal-offer-table-row">
+						<div class="modal-offer-text modal-offer-table-tcell">Discount:</div>
+						
+						<div class="modal-offer-table-vcell" style="transform: translateY(1px);">
+							<input type="number" class="custom-text-field modal-offer-discount-input discount-parameter-field" id="modal-add-offer-discount" maxlength="6" min="0" max="100" placeholder="100%">
+							<span class="modal-offer-text suffix">%</span>
+						</div>
+					</div>
+
+					<div style="display: flex; margin-top: 10px;">
+				
+						<a style="flex-grow: 3;" href="#" class="custom-button" onclick="createOffer();">Создать</a>
+						<a style="flex-grow: 1; margin-left: 10px;" href="#" class="custom-button-cancel" onclick="cancelCreateOffer();">Отмена</a>
+					
+					</div>
+				
+				</div>
+				
+			</div>
+		
+		</div>
+		
+		<div id="modal-background-edit-offer" class="modal-background">
+			
+			<div id="modal-edit-offer" class="modal">
+			
+				<div id="modal-edit-offer-top-container" class="modal-offer-top-container">
+					
+					<img id="modal-edit-offer-icon" class="modal-offer-icon" src="/resources/images/market/offers/cart-icon.svg" />
+				
+					<input class="modal-offer-name custom-text-field" id="modal-edit-offer-name" placeholder="Название"></input>
+				
+				</div>
+				
+				<div id="modal-edit-offer-table" class="modal-offer-table">
+				
+					<div id="edit-stacks-list" class="modal-offer-table-row stacks-list"><!-- load by JQuery --></div>
+					
+					<div id="edit-currencies-list" class="modal-offer-table-row currencies-list"><!-- load by JQuery --></div>
+
+					<div class="modal-offer-table-row">
+						<div class="modal-offer-text modal-offer-table-tcell">Discount:</div>
+						
+						<div class="modal-offer-table-vcell" style="transform: translateY(1px);">
+							<input type="number" class="custom-text-field modal-offer-discount-input discount-parameter-field" id="modal-edit-offer-discount" maxlength="6" min="0" max="100" placeholder="100%">
+							<span class="modal-offer-text suffix">%</span>
+						</div>
+					</div>
+
+					<div style="display: flex; margin-top: 10px;">
+				
+						<a style="flex-grow: 3;" href="#" class="custom-button" onclick="saveModalEditOffer();">Сохранить</a>
+						<a style="flex-grow: 1; margin-left: 10px;" href="#" class="custom-button-cancel" onclick="cancelCreateOffer();">Отмена</a>
+					
+					</div>
+				
+				</div>
+				
+			</div>
+		
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+	</body>
+
+</html>

@@ -1,0 +1,91 @@
+<html>
+	
+	<header><!-- load by JQuery --></header>
+	
+	<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		
+		<style>
+			@import url("/resources/style/fonts.css");
+			@import url("/resources/style/vk-panel.css");
+			@import url("/resources/style/vk-checkbox.css");
+			@import url("/resources/style/mc-panel.css");
+			@import url("/resources/style/mc-checkbox.css");
+			@import url("/resources/style/ds-panel.css");
+			@import url("/resources/style/ds-checkbox.css");
+			@import url("/resources/style/tg-panel.css");
+			@import url("/resources/style/tg-checkbox.css");
+			@import url("/resources/style/messenger-panels.css");
+
+			
+			#messengers-grid {
+				
+				position: relative;
+				
+				display: grid;
+				 
+				max-width: 1600px;
+				max-height: 900px;
+				
+				width: 930;
+				height: 415;
+				
+				grid-template-rows: 200px 200px;
+				grid-template-columns: 300px 300px 300px;
+				grid-gap: 15px;
+				
+				margin: auto;
+			}
+		
+		</style>
+	
+	</head>
+	
+	<body onload="init();" style="padding-top: 85px; background: #F2F5F7;">
+	
+		<script src="/resources/scripts/messenger_ajax.js?1"></script>
+		<script src="/resources/scripts/main.js?1"></script>
+		
+			<div id="messengers-grid">
+			
+				<div th:each="messenger : ${messengers}" class="messenger-panel" th:id="|${messenger.type}-panel|" th:data-messenger-type="${messenger.type}">
+					
+					<div class="messenger-pane-top-container" th:id="|${messenger.type}-pane-top-container|">
+					
+						<div style="display: inline-block;">
+							<img height="64" width="64" th:src="|/resources/images/${messenger.type}-icon.svg|" />
+						</div>
+						
+						<div>
+							<img th:src="|/resources/images/${messenger.type}-logo.svg|" th:id="|${messenger.type}-name-logo|" />
+						</div>
+						
+					</div>
+					
+					<p class="messenger-description-text" th:id="|${messenger.type}-description-text|">-</p>
+				
+					<div class="messenger-settings-button">
+					
+						<img height="24" width="24" th:data-messenger-type="${messenger.type}" th:src="|/resources/images/${messenger.type}-settings-icon.svg|" onclick="openSettingsPage(this);" />
+						
+					</div>
+				
+					<div class="messenger-toggle-container" th:id="|${messenger.type}-toggle-container|">
+					
+						<p class="messenger-status-text" th:id="|${messenger.type}-status-text|"></p>
+						
+						<input type="checkbox" class="messenger-toggle" th:id="|t${messenger.type}|" th:data-messenger-type="${messenger.type}" style="display:none" th:onclick="ajaxMessengerActiveSave(this);" th:checked="${messenger.active}"/>
+						<label th:for="|t${messenger.type}|" th:class="|toggle-${messenger.type}|"><span></span></label>
+						
+					</div>
+					
+				</div>
+
+			</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+	</body>
+
+</html>

@@ -1,0 +1,159 @@
+.modal {
+	
+	box-sizing: border-box;
+	
+	width: 100%;
+	max-width: 30vw;
+	min-width: 600px;
+	margin: 10% auto;
+	padding: 10px;
+	background: #fff;
+	
+	position: relative;
+	
+	z-index: 9001;
+}
+
+.suffix {
+	
+	position: absolute !important;
+	left: 0;
+	top: 1px !important;
+	padding-left: 5px !important;
+}
+
+.modal-offer-top-container {
+	
+	display: flex;
+	
+	position: relative;
+
+	margin-bottom: 0.8vh;
+	
+	padding: 10px;
+}
+
+.modal-offer-table {
+	
+	display: flex;
+	
+	flex-direction: column;
+	
+	position: relative;
+	
+	margin: auto;
+
+	padding: 10px;
+}
+
+.modal-offer-table-row {
+	
+	display: flex;
+	
+	flex-direction: row;
+	
+	position: relative;
+	
+	margin: auto;
+	width: 100%;
+	
+	margin-bottom: 10px;
+}
+
+.modal-offer-table-tcell {
+	
+	display: inline-block;
+	position: relative;
+	height: 100%;
+	
+	flex-grow: 1;
+	width: 8vw;
+	max-width: 110;
+	min-width: 90px;
+
+	margin: auto;
+	margin-right: 10px;
+	margin-left: 0px;
+}
+
+.modal-offer-table-vcell {
+	
+	display: inline-block;
+	
+	position: relative;
+	
+	width: 100%;
+}
+
+.modal-offer-text {
+
+	position: relative;
+
+	font-family: Verdana;
+	font-size: 16;
+	color: #42648b;
+	
+	text-align: left;
+	
+	line-height: 120%;
+}
+
+.modal-offer-icon {
+	
+	flex-grow: 0;
+	
+	position: relative;
+	
+	width: 64px;
+	height: 64px;
+	
+	transition: 0.25s;
+	
+	cursor: pointer;
+}
+
+.modal-offer-name {
+	
+	display: inline-block;
+	
+	box-sizing: border-box;
+	
+	min-width: 150px;
+	
+	flex-grow: 1;
+	
+	position: relative;
+
+	margin: 0.8vh 0.8vw 0.8vh 0.8vw;
+	
+	font-family: Verdana;
+	font-size: 22 !important;
+	color: #7892A3;	
+}
+
+#modal-add-offer-2 {
+	
+	padding: 1.6%;
+	
+	max-width: 400px;
+
+	text-align: center;
+}
+
+#modal-add-offer-2-image {
+	
+	box-sizing: border-box;
+
+	position: relative;
+	
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 2vh;
+}
+
+#modal-add-offer-2-close-text {
+	
+	margin-top: 1vh;
+	text-align: center;
+}

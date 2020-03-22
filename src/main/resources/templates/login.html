@@ -1,0 +1,63 @@
+<html>
+	
+	<header><!-- load by JQuery --></header>
+	
+	<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		
+		<style>
+		
+			@import url("/resources/style/fonts.css");
+			@import url("/resources/style/management/login.css");
+			@import url("/resources/style/default.css");
+			
+		</style>
+	
+	</head>
+	
+	<body onload="init();" style="padding-top: 85px; background: #F2F5F7;">
+
+		<script src="/resources/scripts/management/login/init.js?1"></script>
+		
+		<div id="form-parent">
+			
+			<form name="f" action="login" method="POST">
+
+				<div id="login-form">
+					
+					<div id="icon-wrap">
+						<img src="/resources/images/management/login/icon.svg"/>
+					</div>
+					
+					<div id="login-data-table">
+					
+						<div class="login-data-table-row">
+							<div class="login-text login-data-table-tcell">Login:</div>
+							<input name="username" class="custom-text-field login-data-table-vcell" id="login-data-table-login" placeholder="xxxxxx"></input>
+						</div>
+						
+						<div class="login-data-table-row">
+							<div class="login-text login-data-table-tcell">Pass:</div>
+							<input name="password" type="password" class="custom-text-field login-data-table-vcell" id="login-data-table-pass" placeholder="xxxxxx"></input>
+						</div>
+						
+						<div style="display: flex; margin-top: calc(5% - 10px);">
+					
+							<input type="submit" style="flex-grow: 1;" class="custom-button" value="Войти"></input>
+						
+						</div>
+					
+					</div>
+					
+				</div>
+				
+			</form>
+			
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+	</body>
+
+</html>

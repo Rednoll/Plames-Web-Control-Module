@@ -1,0 +1,239 @@
+<html>
+
+	<header><!-- load by JQuery --></header>
+
+	<style>
+
+		@import url("/resources/style/robokassa/paygates/paygate-row-container.css");
+		@import url("/resources/style/robokassa/paygates/robokassa-paygates-checkbox.css");
+		@import url("/resources/style/robokassa/paygates/modal-background.css");
+		@import url("/resources/style/robokassa/paygates/modal-add-paygate.css");
+		@import url("/resources/style/robokassa/paygates/robokassa-paygates.css");
+		@import url("/resources/style/default.css");
+	
+		#paygates-list {
+	
+			position: relative;
+	
+			display: flex;
+			flex-direction: column;
+			
+			width: 80vw;
+			
+			margin: auto;
+		}
+		
+		input::-webkit-input-placeholder {
+		
+			color: gray;
+			opacity: 0.35;
+		}
+
+	</style>
+		
+	<body onload="init();" style="padding-top: 85px; background: #F2F5F7;">
+	
+		<script src="/resources/scripts/robokassa/paygates/paygate_ajax.js?1"></script>
+		<script src="/resources/scripts/robokassa/paygates/robokassa_paygates.js?1"></script>
+
+		<div id="paygates-list">
+
+			<div class="paygate-container list-header">
+			
+				<div class="paygate-row-container">
+				
+					<img class="paygate-row-icon" style="margin: 0px 0.8vw 0px 0.5vw;" src="/resources/images/robokassa/paygates/search-icon.svg" onclick="toggleSearch();"/>
+					
+					<div class="paygate-row-text paygate-row-name">Название</div>
+
+					<div class="paygate-row-text paygate-row-id">Id</div>
+
+					<div class="paygate-row-text paygate-row-merchant-login">Логин магазина</div>
+					
+					<div class="paygate-row-text paygate-row-test">Test Mode</div>
+					
+					<div class="paygate-row-text paygate-row-status">Статус</div>
+
+					<div class="paygate-row-sub-container" style="max-width: 48px;">
+						<img class="paygate-row-icon" src="/resources/images/robokassa/paygates/plus-icon.svg" onclick="location.href='/robokassa/paygates#modal-background-add-paygate'"/>
+					</div>
+				
+				</div>
+			
+			</div>
+			
+			<div id="paygate-search-row" class="paygate-container" style="opacity: 0;" data-opened=false>
+			
+				<div class="paygate-row-container">
+				
+					<img class="paygate-row-icon" style="margin: 0px 0.8vw 0px 0.5vw; opacity: 0;" src="/resources/images/robokassa/paygates/search-icon.svg"/>
+					
+					<input id="paygate-search-name" class="paygate-row-text custom-text-field paygate-row-name" placeholder="шлюз" oninput="sendSearchRequest();"></input>
+					
+					<input id="paygate-search-id" class="paygate-row-text custom-text-field paygate-row-id" placeholder="4412" oninput="sendSearchRequest();"></input>
+					
+					<input id="paygate-search-merchant-login" class="paygate-row-text custom-text-field paygate-row-merchant-login" placeholder="test" oninput="sendSearchRequest();"></input>
+					
+					<input id="paygate-search-test" class="paygate-row-text custom-text-field paygate-row-test" placeholder="True" oninput="sendSearchRequest();"></input>
+					
+					<div class="paygate-row-text paygate-row-status" style="opacity: 0;">Статус</div>
+
+					<div class="paygate-row-sub-container" style="max-width: 48px; opacity: 0;">
+						<img class="paygate-row-icon"/>
+					</div>
+				
+				</div>
+			
+			</div>
+			
+			<div id="paygate-prototype" style="display: none;" data-opened=false>
+			
+				<div class="paygate-row-container">
+					
+					<img class="paygate-row-icon" style="margin: 0px 0.8vw 0px 0.5vw;" src="/resources/images/robokassa/paygates/paygate-icon.svg"/>
+
+					<div class="paygate-row-text paygate-row-name"></div>
+					
+					<div class="paygate-row-text paygate-row-id"></div>
+
+					<div class="paygate-row-text paygate-row-merchant-login"></div>
+					
+					<div class="paygate-row-text paygate-row-test"></div>
+					
+					<div class="paygate-row-text paygate-row-status"></div>
+
+					<div class="paygate-row-sub-container" style="max-width: 48px;">
+						
+						<input type="checkbox" class="paygate-status-toggle" style="display:none" onclick="ajaxPaygateActiveSave(this);"/>
+						<label class="paygate-status-toggle-label"><span></span></label>
+					
+					</div>
+				
+				</div>
+				
+				<div class="paygate-settings-container">
+					
+					<p class = "custom-text paygate-settings-description">Сбор данных</p>
+					
+					<div class="paygate-settings-buttons-container">
+						
+						<a class="custom-button paygate-edit-button" onclick="openModalEditPaygate($(this).closest('.paygate-container').attr('data-paygate-id'));">Редактировать</a>
+						
+						<a class="custom-button-cancel paygate-delete-button" onclick="deletePaygateById($(this).closest('.paygate-container').attr('data-paygate-id')); setTimeout(()=> location.reload(), 500);">Удалить</a>
+				
+					</div>
+				
+				</div>
+				
+			</div>
+
+			<div class="paygate-container">
+			
+				<div class="paygate-row-container" style="justify-content: center;">
+					
+					<a id="scroll-prevent-page" style="flex-grow: 0; width: 4vw; margin-right: 2vw;" class="custom-sub-button" onclick="preventPage();">&lt;</a>
+					
+					<input id="scroll-page-field" style="flex-grow: 0; width: 8vw; text-align: center;" class="custom-text-field" onclick="goPage($(this).val());" value="0"></input>
+					
+					<a id="scroll-next-page" style="flex-grow: 0; width: 4vw; margin-left: 2vw;" class="custom-sub-button" onclick="nextPage();">&gt;</a>
+					
+				</div>
+				
+			</div>
+
+		</div>
+		
+		<div id="modal-background-add-paygate" class="modal-background">
+			
+			<div id="modal-add-paygate" class="modal">
+			
+				<div id="modal-add-paygate-top-container" class="modal-paygate-top-container">
+					
+					<img id="modal-add-paygate-icon" class="modal-paygate-icon" src="/resources/images/robokassa/paygates/paygate-icon.svg" />
+				
+					<input class="modal-paygate-name custom-text-field" id="modal-add-paygate-name" placeholder="Название"></input>
+				
+				</div>
+				
+				<div id="modal-add-paygate-table" class="modal-paygate-table">
+				
+					<div class="modal-paygate-table-row">
+						<div class="modal-paygate-text modal-paygate-table-tcell">Merchant Login:</div>
+						<input class="custom-text-field modal-paygate-table-vcell" id="modal-add-paygate-merchant-login" placeholder="xxxxxx"></input>
+					</div>
+					
+					<div class="modal-paygate-table-row">
+						<div class="modal-paygate-text modal-paygate-table-tcell">Pass 1:</div>
+						<input class="custom-text-field modal-paygate-table-vcell" id="modal-add-paygate-pass1" placeholder="xxxxxx"></input>
+					</div>
+					
+					<div class="modal-paygate-table-row">
+						<div class="modal-paygate-text modal-paygate-table-tcell">Pass 2:</div>
+						<input class="custom-text-field modal-paygate-table-vcell" id="modal-add-paygate-pass2" placeholder="xxxxxx"></input>
+					</div>
+					
+					<div class="modal-paygate-table-row">
+						<div class="modal-paygate-text modal-paygate-table-tcell">Test:</div>
+						<input type="checkbox" class="modal-paygate-table-vcell" id="modal-add-paygate-test"></input>
+					</div>
+					
+					<div style="display: flex;">
+				
+						<a style="flex-grow: 3;" class="custom-button" onclick="createPaygate();">Создать</a>
+						<a style="flex-grow: 1; margin-left: 10px;" href="#" class="custom-button-cancel">Отмена</a>
+					
+					</div>
+				
+				</div>
+				
+			</div>
+		
+		</div>
+		
+		<div id="modal-background-edit-paygate" class="modal-background">
+			
+			<div id="modal-edit-paygate" class="modal">
+			
+				<div id="modal-edit-paygate-top-container" class="modal-paygate-top-container">
+					
+					<img id="modal-edit-paygate-icon" class="modal-paygate-icon" src="/resources/images/robokassa/paygates/paygate-icon.svg" />
+				
+					<input class="modal-paygate-name custom-text-field" id="modal-edit-paygate-name" placeholder="Название"></input>
+				
+				</div>
+				
+				<div id="modal-edit-paygate-table" class="modal-paygate-table">
+				
+					<div class="modal-paygate-table-row">
+						<div class="modal-paygate-text modal-paygate-table-tcell">Pass 1:</div>
+						<input class="custom-text-field modal-paygate-table-vcell" id="modal-edit-paygate-pass1" placeholder="xxxxxx"></input>
+					</div>
+					
+					<div class="modal-paygate-table-row">
+						<div class="modal-paygate-text modal-paygate-table-tcell">Pass 2:</div>
+						<input class="custom-text-field modal-paygate-table-vcell" id="modal-edit-paygate-pass2" placeholder="xxxxxx"></input>
+					</div>
+					
+					<div class="modal-paygate-table-row">
+						<div class="modal-paygate-text modal-paygate-table-tcell">Test:</div>
+						<input type="checkbox" class="custom-text-field modal-paygate-table-vcell" id="modal-edit-paygate-test"></input>
+					</div>
+					
+					<div style="display: flex;">
+				
+						<a style="flex-grow: 3;" class="custom-button" onclick="saveModalEditPaygate();">Сохранить</a>
+						<a style="flex-grow: 1; margin-left: 10px;" href="#" class="custom-button-cancel">Отмена</a>
+					
+					</div>
+				
+				</div>
+				
+			</div>
+		
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+	</body>
+
+</html>

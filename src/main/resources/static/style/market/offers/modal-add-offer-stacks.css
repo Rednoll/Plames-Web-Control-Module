@@ -1,0 +1,90 @@
+.stacks-list {
+	
+	position: relative;
+	
+	display: flex;
+	
+	flex-direction: column;
+	
+	box-shadow: 0 0 3.5px rgba(0, 0, 0, 0.5);
+	
+	background: white;
+}
+
+.stacks-list-header {
+	
+	position: relative;
+	
+	box-sizing: border-box;
+	
+	display: flex;
+	
+	width: 100%;
+	min-width: 300px;
+	flex-direction: row;
+	padding: 5px 0px 5px 0px;
+	
+	flex-grow: 0;
+}
+
+.stack-part {
+	
+	position: relative;
+
+	margin: 0px 0.2vw 0px 0.2vw;
+	
+	vertical-align: middle;
+}
+
+.stack-icon {
+	
+	position: relative;
+	
+	margin: 0px 0.5vw 0px 0.5vw;
+	
+	min-width: 32px;
+	width: 32px;
+	height: 32px;
+	
+	cursor: pointer;
+}
+
+.stack-name {
+
+	flex-grow: 4;
+	width: 8vw !important;
+}
+
+.stack-amount-prefix {
+	
+	flex-grow: 0;
+	max-width: 30px;
+
+	text-align: center;
+	border: 0px solid red !important;
+	color: lightgrey !important;
+}
+
+.stack-amount {
+	
+	flex-grow: 1;
+	width: 2vw !important;
+}
+
+.item-stack {
+	
+	position: relative;
+	
+	box-sizing: border-box;
+	
+	display: flex;
+	
+	width: 100%;
+	min-width: 300px;
+	flex-direction: row;
+	padding: 5px 0px 5px 0px;
+	
+	flex-grow: 0;
+	
+	border-top: 1px solid lightgrey;
+}

@@ -1,0 +1,211 @@
+.modal {
+	
+	box-sizing: border-box;
+	
+	width: 100%;
+	max-width: 30vw;
+	min-width: 350px;
+	margin: 10% auto;
+	padding: 0.8%;
+	background: #fff;
+	
+	position: relative;
+	
+	z-index: 9001;
+}
+
+/*
+.modal-add-group-button {
+	
+	font-family: Roboto;
+	font-size: 15;
+	color: white;
+	text-decoration: none;
+	text-align: center;
+	line-height: calc(200% - 3px);
+	user-select: none;
+	
+	position: relative;
+	display: inline-block;
+
+	height: 100%;
+
+	padding-left: 5px;
+	padding-right: 5px;
+
+	background-color: #B0D5F2;
+	outline-width: 0;
+	border: 1px solid #B0D5F2;
+	border-radius: 3px;
+}
+
+.modal-add-group-button-cancel {
+	
+	font-family: Roboto;
+	font-size: 15;
+	color: #7892A3;
+	text-decoration: none;
+	text-align: center;
+	line-height: calc(200% - 3px);
+	user-select: none;
+	
+	position: relative;
+	display: inline-block;
+
+	height: 100%;
+
+	padding-left: 5px;
+	padding-right: 5px;
+
+	background-color: transparent;
+	outline-width: 0;
+	border: 1px solid #CCCCCC;
+	border-radius: 3px;
+}
+
+*/
+
+.modal-group-top-container {
+	
+	display: flex;
+	
+	position: relative;
+
+	margin-bottom: 0.8vh;
+	
+	padding: 10px;
+}
+
+.modal-group-table {
+	
+	display: flex;
+	
+	flex-direction: column;
+	
+	position: relative;
+	
+	margin: auto;
+
+	padding: 10px;
+}
+
+.modal-group-table-row {
+	
+	display: flex;
+	
+	flex-direction: row;
+	
+	position: relative;
+	
+	margin: auto;
+	width: 100%;
+	
+	margin-bottom: 10px;
+}
+
+.modal-group-table-tcell {
+	
+	display: inline-block;
+	position: relative;
+	height: 100%;
+	
+	flex-grow: 1;
+	width: 8vw;
+	max-width: 100px;
+	min-width: 80px;
+
+	margin: auto;
+	margin-right: 10px;
+}
+
+.modal-group-table-vcell {
+	
+	display: inline-block;
+	
+	position: relative;
+}
+
+.modal-group-text {
+
+	position: relative;
+
+	font-family: Verdana;
+	font-size: 16;
+	color: #42648b;
+	
+	text-align: left;
+	
+	line-height: 120%;
+}
+
+.modal-group-icon {
+	
+	flex-grow: 0;
+	
+	position: relative;
+	
+	width: 64px;
+	height: 64px;
+}
+
+.modal-group-name {
+	
+	display: inline-block;
+	
+	box-sizing: border-box;
+	
+	min-width: 150px;
+	
+	flex-grow: 1;
+	
+	position: relative;
+
+	margin: 0.8vh 0.8vw 0.8vh 0.8vw;
+	
+	font-family: Verdana;
+	font-size: 22 !important;
+	color: #7892A3;	
+}
+
+#modal-add-group-2 {
+	
+	padding: 1.6%;
+	
+	max-width: 400px;
+}
+
+#modal-add-group-2-image {
+	
+	box-sizing: border-box;
+
+	position: relative;
+	
+	width: 100%;
+}
+
+#modal-add-group-3 {
+	
+	padding: 1.6%;
+	
+	max-width: 400px;
+
+	text-align: center;
+}
+
+#modal-add-group-3-image {
+	
+	box-sizing: border-box;
+
+	position: relative;
+	
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 2vh;
+}
+
+#modal-add-group-3-close-text {
+	
+	margin-top: 1vh;
+	text-align: center;
+}

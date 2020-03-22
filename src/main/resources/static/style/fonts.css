@@ -1,0 +1,8 @@
+@font-face {
+	
+	font-family: "Mc-font";
+	src: url('fonts/mc-font.eot');
+	src: local('☺'), url('fonts/mc-font.woff') format('woff'), url('fonts/mc-font.ttf') format('truetype'), url('fonts/mc-font.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

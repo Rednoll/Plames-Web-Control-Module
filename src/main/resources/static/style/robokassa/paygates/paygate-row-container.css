@@ -1,0 +1,161 @@
+.paygate-container {
+	
+	position: relative;
+	
+	box-shadow: 0 0 3.5px rgba(0, 0, 0, 0.5);
+	padding: 5;
+	padding-top: 8;
+	padding-bottom: 8;
+	margin-bottom: 10;
+	
+	display: flex;
+	
+	flex-direction: column;
+	
+	background: white;
+}
+
+.paygate-settings-container {
+
+	position: relative;
+
+	display: none;
+	opacity: 0;
+	
+	margin: 0.8vh 0.8vw 0.8vh 0.5vw;
+	
+	width: calc(100% - 1.3vw);
+	
+	flex-grow: 1;
+	
+	border-top: 1px solid lightgrey;
+	
+	box-sizing: border-box;
+}
+
+.paygate-settings-description {
+	
+	margin-left: 0.8vw;
+	margin-right: 0.8vw;
+	
+	line-height: calc(150% + 1px);
+}
+
+.paygate-settings-buttons-container {
+	
+	display: flex;
+	
+	position: absolute;
+	
+	bottom: 0;
+	right: 0;
+}
+
+.paygate-delete-button {
+	
+	flex-grow: 1;
+}
+
+.paygate-edit-button {
+	
+	flex-grow: 2;
+
+	margin-right: calc(0.8vw + 6px);
+}
+
+.paygate-row-container {
+	
+	position: relative;
+	
+	box-sizing: border-box;
+	
+	display: flex;
+	width: 100%;
+	min-width: 600px;
+	flex-direction: row;
+	
+	flex-grow: 0;
+}
+
+.paygate-row-icon {
+	
+	position: relative;
+	
+	min-width: 32px;
+	width: 32px;
+	height: 32px;
+	
+	cursor: pointer;
+}
+
+.paygate-row-name {
+
+	margin: 0px 0.8vw 0px 0.8vw;
+	flex-grow: 3;
+	width: 8vw !important;
+	
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.paygate-row-id {
+	
+	flex-grow: 2;
+	
+	width: 12vw !important;;
+}
+
+.paygate-row-merchant-login {
+	
+	flex-grow: 2;
+	
+	width: 12vw !important;;
+}
+
+.paygate-row-test {
+	
+	flex-grow: 2;
+	
+	width: 12vw !important;;
+}
+
+.paygate-row-status {
+	
+	flex-grow: 2;
+	
+	width: 5vw !important;;
+}
+
+.paygate-row-sub-container {
+	
+	flex-grow: 1;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	
+	position: relative;
+	
+	margin-left: 0.8vw;
+	margin-right: 0.4vw;
+}
+
+.paygate-row-text {
+	
+	position: relative;
+	
+	font-family: Verdana;
+	font-size: 16;
+	color: #7892A3;
+	
+	margin: 0px 0.8vw 0px 0.8vw;
+	
+	line-height: 200%;
+	
+	text-align: center;
+	vertical-align: middle;
+	
+	font-weight: 400;
+}

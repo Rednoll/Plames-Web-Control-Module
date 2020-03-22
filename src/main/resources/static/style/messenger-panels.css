@@ -1,0 +1,76 @@
+.messenger-panel {
+	
+	display: flex;
+	flex-direction: column;
+
+	position: relative;
+	width: 300px;
+	height: 200px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	padding: 10px;
+	box-sizing: border-box;
+	
+	/* border: 1px solid red; */
+}
+
+.messenger-description-text {
+	
+	position: relative;
+	
+	font-family: Verdana;
+	font-size: 16;
+	text-align: left;
+	
+	margin-left: 20px;
+	margin-top: 12.5px;
+	
+	/* border: 1px solid orange; */
+}
+
+.messenger-pane-top-container {
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	
+	position: relative;
+
+	/* border: 1px solid green; */
+}
+
+.messenger-status-text {
+	
+	font-family: Verdana;
+	font-weight: lighter;
+	font-size: 12;
+	color: #39E539;
+	text-align: center;
+	padding: 0 10 0 0;
+	line-height: 0px;
+	font-weight: 600;
+}
+
+.messenger-toggle-container {
+	
+	display: flex;
+	flex-direction: row;
+	
+	align-items: center;
+	
+	position: absolute;
+
+	bottom: 10px;
+	right: 10px;
+
+	/* border: 1px solid green; */
+}
+
+.messenger-settings-button {
+	
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	display: inline-block;
+	
+	cursor: pointer;
+}

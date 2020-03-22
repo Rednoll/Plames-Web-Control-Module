@@ -1,0 +1,156 @@
+<style>
+	
+	body {
+	
+        /* overflow-y: hidden; */
+    }
+	
+	#header-background {
+	
+		display: inline-block;
+	
+		position: fixed;
+		
+		top: 0;
+		left: 0;
+		right: 0;
+		
+		height: 60px;
+		
+		background: #BAE1FF;
+		
+		z-index: 8000;
+	}
+	
+	#main-header-container {
+	
+		display: flex;
+		flex-direction: row;
+	
+		width: 90vw;
+	
+		margin: auto;
+		
+		align-items: center;
+		
+		height: 100%;
+	}
+	
+	#icon {
+	
+		display: inline-block;
+	
+		height: 32px;
+		
+		cursor: pointer;
+	}
+	
+	#logo {
+	
+		display: inline-block;
+	
+		height: 32px;
+	
+		font: Verdana;
+		font-size: 26;
+		color: white;
+		
+		margin-left: 24px;
+		margin-right: 32px;
+		
+		line-height: 130%;
+	}
+	
+	#navigator {
+	
+		display: flex;
+		flex-direction: row;
+		
+		align-items: center;
+	
+		height: 100%;
+	}
+	
+	.navigator-unit {
+	
+		display: inline-block;
+		box-sizing: border-box;
+		
+		font: Verdana;
+		font-size: 24;
+		color: white;
+		
+		text-decoration: none;
+		
+		margin-right: 24px;
+		
+		cursor: pointer;
+	}
+	
+	#logout-button {
+	
+		position: fixed;
+		
+		top: 14;
+		right: 14;
+		
+		width: 32;
+		height: 32;
+		
+		display: none;
+		
+		cursor: pointer;
+	}
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<div id="header-background">
+
+	<div id="main-header-container">
+	
+		<img id="icon" src="/resources/images/icon.svg" onclick="location.href='/'"/>
+		
+		<div id="logo">Plames</div>
+		
+		<div id="navigator">
+			
+			<a class="navigator-unit" href="/modules">Модули</a>
+			
+			<a class="navigator-unit" href="/">Интеграции</a>
+			
+		</div>
+		
+		<script src="/resources/scripts/common/common.js?1"></script>
+		
+		<script defer>
+			
+			$.ajax({
+			
+				headers: {
+
+					'Content-Type': 'application/json;charset=UTF-8' 
+				},
+				type: "GET",
+				url: "../web/controller/security/ajax/check",
+				dataType: "JSON",
+				
+				success: function(data) {
+					
+					if(data.auth) {
+					
+						$("#logout-button").css("display", "inline-block");
+					}
+				}
+			});
+			
+			commonInit();
+		
+		</script>
+		
+		<img id="logout-button" onclick="location.href='/logout'" src="/resources/images/header/logout-icon.svg"/>
+		
+	</div>
+	
+</div>

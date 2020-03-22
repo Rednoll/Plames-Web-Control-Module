@@ -1,0 +1,38 @@
+<div class="currencies-list-header">
+	
+	<img class="currency-icon add-currency-icon-first" src="/resources/images/common/dollar-icon.svg" onclick=""/>
+	
+	<select class="custom-select currency-part currency-name currency-name-input">
+		
+	</select>
+	
+	<input class="custom-text-field currency-part currency-amount-prefix" value=":" readonly></input>
+
+	<input class="custom-text-field currency-part currency-amount currency-amount-input" placeholder="10"></input>
+		
+	<img class="currency-icon" style="margin: 0px 0px 0px 0.5vw !important;" src="/resources/images/market/offers/plus-icon.svg" onclick="addCurrencyFFD($(this).parent().parent());"/>
+	
+	<img class="currency-icon currency-icon-mode" src="/resources/images/common/custom-icon.svg" onclick="toggleAutoMode($(this).parent().parent());"/>
+	
+</div>
+
+<div class="currencies-list-container">
+	
+	<div class="currency-prototype" style="display: none;">
+		
+		<img class="currency-icon currency-icon-first" src="---" onclick=""/>
+	
+		<input class="custom-text-field currency-part currency-name" value="валюта:" style="border: 0px solid red;" readonly></input>
+		
+		<input class="custom-text-field currency-part currency-amount-prefix" value=":" readonly></input>
+		
+		<!--
+		<input class="custom-text-field currency-part currency-amount" value="10" style="text-align: left-side; border: 0px solid red;" readonly></input>
+		-->
+		<p class="custom-text currency-part currency-amount" value="10" style="text-align: left-side; border: 0px solid red; line-height: 200%;"></p>
+		
+		<img class="currency-icon currency-icon-second" style="margin-left: calc(1.0vw + 32px) !important;" src="/resources/images/market/offers/close-icon.svg" onclick="removeCurrency($(this).parent());"/>
+		
+	</div>
+	
+</div>

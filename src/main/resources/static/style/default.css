@@ -1,0 +1,166 @@
+.custom-text-field {
+	
+	width: 100%;
+	
+	outline-width: 0;
+	border: none;
+	border-bottom: 2px solid #9EBFD8;
+	
+	font-family: Verdana;
+	font-size: 16;
+	color: #7892A3;
+	
+	padding-bottom: 2px;
+}
+
+.custom-text-field-incorrect {
+	
+	width: 100%;
+	
+	outline-width: 0;
+	border: none;
+	border-bottom: 2px solid #D81A40 !important;
+	
+	font-family: Verdana;
+	font-size: 16;
+	color: #E12327 !important;
+	
+	padding-bottom: 2px;
+}
+
+.custom-select {
+	
+	width: 100%;
+	
+	outline-width: 0;
+	border: none;
+	border-bottom: 2px solid #9EBFD8;
+	
+	font-family: Verdana;
+	font-size: 16;
+	color: #7892A3;
+	
+	padding-bottom: 2px;
+}
+
+.custom-text {
+
+	font-family: Verdana;
+	font-size: 16;
+	color: #7892A3;
+}
+
+.custom-button {
+	
+	font-family: Verdana;
+	font-size: 16;
+	color: #7892A3;
+	text-decoration: none;
+	text-align: center;
+	line-height: calc(200% - 3px);
+	user-select: none;
+	
+	display: inline-block;
+	box-sizing: border-box;
+	
+	background-color: #BAE1FF;
+	outline-width: 0;
+	border: 3px solid #9EBFD8;
+	
+	transition: 0.2s;
+	
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.custom-sub-button {
+	
+	font-family: Verdana;
+	font-size: 16;
+	color: #7892A3;
+	text-decoration: none;
+	text-align: center;
+	line-height: calc(200% - 3px);
+	user-select: none;
+	cursor: pointer;
+	
+	display: inline-block;
+	box-sizing: border-box;
+	
+	background-color: white;
+	outline-width: 0;
+	border: 3px solid #9EBFD8;
+	
+	transition: 0.2s;
+	
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.custom-button:hover {
+	
+	color: white;
+	background-color: #B0D5F2;
+	border-color: #95B3C9;
+	cursor: pointer; 
+}
+
+.custom-button-cancel {
+	
+	font-family: Verdana;
+	font-size: 16;
+	color: #E12327;
+	text-decoration: none;
+	text-align: center;
+	line-height: calc(200% - 3px);
+	user-select: none;
+	
+	display: inline-block;
+	
+	background-color: white;
+	outline-width: 0;
+	border: 3px solid #D81A40;
+	
+	height: 30px;
+	transition: 0.2s;
+	
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.custom-button-cancel:hover {
+	
+	color: white;
+	background-color: #FF1E45;
+	cursor: pointer; 
+}
+
+.custom-button-ok {
+	
+	font-family: Verdana;
+	font-size: 16;
+	color: #27E123;
+	text-decoration: none;
+	text-align: center;
+	line-height: calc(200% - 3px);
+	user-select: none;
+	
+	display: inline-block;
+	
+	background-color: white;
+	outline-width: 0;
+	border: 3px solid #3CD81A;
+	
+	height: 30px;
+	transition: 0.2s;
+	
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.custom-button-ok:hover {
+	
+	color: white;
+	background-color: #45FF1E;
+	cursor: pointer; 
+}

@@ -1,0 +1,23 @@
+#vk-panel {
+
+	background: #EDEEF0;
+}
+
+#vk-name-logo {
+	
+	position: relative;
+	flex: 1 1 auto;
+	
+	margin: 0 10px 0 10px;
+	
+	width: calc(100% - 22px);
+}
+
+
+#vk-description-text {
+
+	color: #42648b;	
+	margin-top: 8px;
+	margin-left: 15px;
+	line-height: calc(150% + 1px);
+}

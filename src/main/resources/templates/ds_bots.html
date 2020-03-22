@@ -1,0 +1,183 @@
+<html>
+
+	<header><!-- load by JQuery --></header>
+
+	<style>
+
+		@import url("/resources/style/ds/bots/bot-row-container.css");
+		@import url("/resources/style/ds/bots/ds-bot-checkbox.css");
+		@import url("/resources/style/ds/bots/modal-background.css");
+		@import url("/resources/style/ds/bots/modal-add-bot.css");
+		@import url("/resources/style/ds/bots/ds-bots.css");
+		@import url("/resources/style/default.css");
+	
+		#bots-list {
+	
+			position: relative;
+	
+			display: flex;
+			flex-direction: column;
+			
+			max-width: 1400px;
+			
+			width: 80vw;
+			
+			margin: auto;
+		}
+
+	</style>
+		
+	<body onload="init();" style="padding-top: 85px; background: #F2F5F7;">
+	
+		<script src="/resources/scripts/ds/bots/init.js?1"></script>
+		<script src="/resources/scripts/ds/bots/bot_ajax.js?1"></script>
+		<script src="/resources/scripts/ds/bots/ds_bots.js?1"></script>
+		
+		<div id="bots-list">
+
+			<div class="bot-container">
+			
+				<div class="bot-row-container">
+				
+					<img class="bot-row-icon" src="/resources/images/ds/bots/plus-icon.svg" onclick="location.href='/ds/bots#modal-background-add-bot'"/>
+					
+					<div class="bot-row-text bot-row-name">Название</div>
+					
+					<div class="bot-row-text bot-row-token">Токен</div>
+					
+					<div class="bot-row-text bot-row-ps">Кол-во профилей</div>
+					
+					<div class="bot-row-text bot-row-status">Статус</div>
+					
+					<div class="bot-row-sub-container"></div>
+					
+				</div>
+			
+			</div>
+			
+			<div th:each="bot : ${bots}" class="bot-container" th:id="|${bot.id}-container|" th:data-bot-id="|${bot.id}|" data-opened=false>
+			
+				<div class="bot-row-container" th:id="|${bot.id}-row-container|">
+					
+					<img class="bot-row-icon" src="/resources/images/ds/bots/ds-icon.svg" th:onclick="|toggleBotRow(${bot.id});|"/>
+					
+					<div class="bot-row-text bot-row-name" th:text="|${bot.name}|"></div>
+					
+					<div class="bot-row-text bot-row-token" th:text="|${bot.shortyToken()}|"></div>
+					
+					<div class="bot-row-text bot-row-ps" th:text="|${#lists.size(bot.users)} p-s|"></div>
+					
+					<div class="bot-row-text bot-row-status" th:id="|bot-${bot.id}-status-text|"></div>
+					
+					<div class="bot-row-sub-container">
+						
+						<input type="checkbox" class="bot-status-toggle" th:id="|bot-${bot.id}-status-toggle|" th:data-bot-id="${bot.id}" style="display:none" th:onclick="ajaxBotActiveSave(this);" th:checked="${bot.active}"/>
+						<label th:for="|bot-${bot.id}-status-toggle|" class="bot-status-toggle-label"><span></span></label>
+					
+					</div>
+				
+				</div>
+				
+				<div class="bot-settings-container" th:id="|${bot.id}-settings-container|">
+					
+					<p class = "custom-text bot-settings-description" th:id="|${bot.id}-description-text|">Сбор данных</p>
+					
+					<div class="bot-settings-buttons-container">
+						
+						<a class="custom-button bot-edit-button" th:onclick="|openModalEditBot(${bot.id});|">Редактировать</a>
+						
+						<a class="custom-button-cancel bot-delete-button" th:onclick="|deleteBotById(${bot.id}); setTimeout(()=> location.reload(), 500);|">Удалить</a>
+				
+					</div>
+				
+				</div>
+				
+			</div>
+
+		</div>
+		
+		<div id="modal-background-add-bot" class="modal-background">
+			
+			<div id="modal-add-bot" class="modal">
+			
+				<div id="modal-add-bot-top-container" class="modal-bot-top-container">
+					
+					<img id="modal-add-bot-icon" class="modal-bot-icon" src="/resources/images/ds/bots/ds-icon.svg" />
+				
+					<input class="modal-bot-name custom-text-field" id="modal-add-bot-name" placeholder="Название"></input>
+				
+				</div>
+				
+				<div id="modal-add-bot-table" class="modal-bot-table">
+				
+					<div class="modal-bot-table-row">
+						<div class="modal-bot-text modal-bot-table-tcell">Token:</div>
+						<input class="custom-text-field modal-bot-table-vcell" id="modal-add-bot-token" placeholder="xxxxxx"></input>
+					</div>
+					
+					<div style="display: flex;">
+				
+						<a style="flex-grow: 3;" href="#modal-background-add-bot-2" class="custom-button" onclick="createBot();">Далее</a>
+						<a style="flex-grow: 1; margin-left: 10px;" href="#" class="custom-button-cancel">Отмена</a>
+					
+					</div>
+				
+				</div>
+				
+			</div>
+		
+		</div>
+		
+		<div id="modal-background-add-bot-2" class="modal-background">
+		
+			<div id="modal-add-bot-2" class="modal">
+				
+				<img id="modal-add-bot-2-image" src="/resources/images/ok-sign.svg"></img>
+				
+				<p class="modal-bot-text">Отлично, бот добавлен!</p>
+				
+				<p class="modal-bot-text" id="modal-add-bot-2-close-text">Окно закроется через <span style="color: red;">10</span> сек</p>
+				
+				<a style="width: calc(100% - 6px - 16px); margin-top: 1.5vh;" onclick="closeModal(); setTimeout(()=> location.reload(), 500);" class="custom-button-ok">Закрыть</a>
+			
+			</div>
+			
+		</div>
+		
+		<div id="modal-background-edit-bot" class="modal-background">
+		
+			<div id="modal-edit-bot" class="modal">
+			
+				<div id="modal-edit-bot-container" class="modal-bot-top-container">
+					
+					<img id="modal-edit-bot-icon" class="modal-bot-icon" src="/resources/images/ds/bots/ds-icon.svg" />
+				
+					<input class="modal-bot-name custom-text-field" id="modal-edit-bot-name" placeholder="Название"></input>
+				
+				</div>
+				
+				<div id="modal-edit-bot-table" class="modal-bot-table">
+
+					<div class="modal-bot-table-row">
+						<div class="modal-bot-text modal-bot-table-tcell">Token:</div>
+						<input class="custom-text-field modal-bot-table-vcell" id="modal-edit-bot-token" placeholder="xxxxxx"></input>
+					</div>
+					
+					<div style="display: flex;">
+				
+						<a style="flex-grow: 1;" class="custom-button" onclick="saveModalEditBot();">Сохранить</a>
+						<a style="flex-grow: 1; margin-left: 10px;" class="custom-button-cancel" href="#">Отмена</a>
+					
+					</div>
+					
+				</div>
+			
+			</div>
+		
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+	</body>
+
+</html>

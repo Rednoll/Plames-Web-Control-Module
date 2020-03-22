@@ -1,0 +1,232 @@
+<html>
+
+	<header><!-- load by JQuery --></header>
+
+	<style>
+
+		@import url("/resources/style/wallet/currencies/currency-row-container.css");
+		@import url("/resources/style/wallet/currencies/wallet-currency-checkbox.css");
+		@import url("/resources/style/wallet/currencies/modal-background.css");
+		@import url("/resources/style/wallet/currencies/modal-add-currency.css");
+		@import url("/resources/style/wallet/currencies/wallet-currencies.css");
+		@import url("/resources/style/default.css");
+	
+		#currencies-list {
+	
+			position: relative;
+	
+			display: flex;
+			flex-direction: column;
+			
+			max-width: 1400px;
+			
+			width: 80vw;
+			
+			margin: auto;
+		}
+
+	</style>
+		
+	<body onload="init();" style="padding-top: 85px; background: #F2F5F7;">
+	
+		<script src="/resources/scripts/wallet/currencies/init.js?1"></script>
+		<script src="/resources/scripts/wallet/currencies/currency_ajax.js?1"></script>
+		<script src="/resources/scripts/wallet/currencies/wallet_currencies.js?1"></script>
+		
+		<div id="currencies-list">
+
+			<div class="currency-container">
+			
+				<div class="currency-row-container">
+				
+					<img class="currency-row-icon" src="/resources/images/wallet/currencies/plus-icon.svg" onclick="location.href='/wallet/currencies#modal-background-add-currency'"/>
+					
+					<div class="currency-row-text currency-row-name">Название</div>
+					
+					<div class="currency-row-text currency-row-tag">Тег</div>
+					
+					<div class="currency-row-text currency-row-code">Код</div>
+				
+					<div class="currency-row-text currency-row-type">Тип</div>
+					
+					<div class="currency-row-text currency-row-status">Статус</div>
+					
+					<div class="currency-row-sub-container"></div>
+					
+				</div>
+			
+			</div>
+			
+			<div th:each="currency : ${currencies}" class="currency-container" th:id="|${currency.id}-container|" th:data-currency-id="|${currency.id}|" data-opened=false>
+			
+				<div class="currency-row-container" th:id="|${currency.id}-row-container|">
+					
+					<img class="currency-row-icon" th:src="|/data/modules/wallet/currencies/${currency.id}/icon.svg|" th:onclick="|toggleCurrencyRow(${currency.id});|"/>
+					
+					<div class="currency-row-text currency-row-name" th:text="|${currency.name}|"></div>
+					
+					<div class="currency-row-text currency-row-tag" th:text="|${currency.tag}|"></div>
+					
+					<div class="currency-row-text currency-row-code" th:text="|${currency.code}|"></div>
+					
+					<div class="currency-row-text currency-row-type" th:text="|${currency.getType()}|"></div>
+					
+					<div class="currency-row-text currency-row-status" th:id="|currency-${currency.id}-status-text|"></div>
+					
+					<div class="currency-row-sub-container">
+						
+						<input type="checkbox" class="currency-status-toggle" th:id="|currency-${currency.id}-status-toggle|" th:data-currency-id="${currency.id}" style="display:none" th:onclick="ajaxCurrencyActiveSave(this);" th:checked="${currency.active}"/>
+						<label th:for="|currency-${currency.id}-status-toggle|" class="currency-status-toggle-label"><span></span></label>
+					
+					</div>
+				
+				</div>
+				
+				<div class="currency-settings-container" th:id="|${currency.id}-settings-container|">
+					
+					<p class = "custom-text currency-settings-description" th:id="|${currency.id}-description-text|">Сбор данных</p>
+					
+					<div class="currency-settings-buttons-container">
+						
+						<a class="custom-button currency-edit-button" th:onclick="|openModalEditCurrency(${currency.id});|">Редактировать</a>
+						
+						<a class="custom-button-cancel currency-delete-button" th:onclick="|deleteCurrencyById(${currency.id}); setTimeout(()=> location.reload(), 500);|">Удалить</a>
+				
+					</div>
+				
+				</div>
+				
+			</div>
+
+		</div>
+		
+		<div id="modal-background-add-currency" class="modal-background">
+			
+			<div id="modal-add-currency" class="modal">
+			
+				<form id="add-currency-form" method="POST" action="/web/controller/ajax/wallet/currency/create" enctype="multipart/form-data" style="margin-block-end: 0">
+					
+					<div id="modal-add-currency-top-container" class="modal-currency-top-container">
+					
+						<input type="file" id="add-currency-icon-uploader" class="currency-icon-uploader" name="icon" style="display: none;">
+						
+						<label for="add-currency-icon-uploader" class="currency-icon-uploader-label">
+							<img id="modal-add-currency-icon" class="modal-currency-icon" src="/resources/images/wallet/currencies/upload-image-icon.svg" />
+						</label>
+					
+						<input class="modal-currency-name custom-text-field" id="modal-add-currency-name" name="name" placeholder="Название"></input>
+					
+					</div>
+					
+					<div id="modal-add-currency-table" class="modal-currency-table">
+					
+						<div class="modal-currency-table-row">
+							<div class="modal-currency-text modal-currency-table-tcell">Tag:</div>
+							<input class="custom-text-field modal-currency-table-vcell" id="modal-add-currency-tag" name="tag" placeholder="xxxxxx"></input>
+						</div>
+						
+						<div class="modal-currency-table-row">
+							<div class="modal-currency-text modal-currency-table-tcell">Code:</div>
+							<input class="custom-text-field modal-currency-table-vcell" id="modal-add-currency-code" name="code" placeholder="xxxxxx"></input>
+						</div>
+						
+						<div class="modal-currency-table-row">
+							<div class="modal-currency-text modal-currency-table-tcell">F. Level:</div>
+							<input class="custom-text-field modal-currency-table-vcell" id="modal-add-currency-flevel" name="fragmentationLevel" placeholder="xxxxxx"></input>
+						</div>
+						
+						<div class="modal-currency-table-row">
+							<div class="modal-currency-text modal-currency-table-tcell">Type:</div>
+							
+							<select class="custom-select modal-currency-table-vcell" id="modal-add-currency-type" name="type">
+								
+								<option th:each="type: ${currencies_types}" th:value="|${type}|" th:text="|${type}|"></option>
+							
+							</select>
+						
+						</div>
+
+						<div class="modal-currency-table-row modal-currency-table-row-multiplier" style="display: none">
+							<div class="modal-currency-text modal-currency-table-tcell">Multiplier:</div>
+							<input class="custom-text-field modal-currency-table-vcell" id="modal-add-currency-multiplier" name="mtMultiplier" placeholder="0.00"></input>
+						</div>
+
+						<div style="display: flex;">
+					
+							<input type="submit" value="Создать" style="flex-grow: 3;" class="custom-button" />
+							<a style="flex-grow: 1; margin-left: 10px;" href="#" class="custom-button-cancel">Отмена</a>
+						
+						</div>
+					
+					</div>
+				
+				</form>
+				
+			</div>
+		
+		</div>
+		
+		<!-- -->
+		
+		<div id="modal-background-edit-currency" class="modal-background">
+				
+			<div id="modal-edit-currency" class="modal">
+			
+				<form id="edit-currency-form" method="POST" action="/web/controller/ajax/wallet/currency/edit" enctype="multipart/form-data" style="margin-block-end: 0">
+
+					<input id="modal-edit-currency-id" type="hidden" name="id" value="" />
+					
+					<div id="modal-edit-currency-top-container" class="modal-currency-top-container">
+					
+						<input type="file" id="edit-currency-icon-uploader" class="currency-icon-uploader" name="icon" style="display: none;">
+						
+						<label for="edit-currency-icon-uploader" class="currency-icon-uploader-label">
+							<img id="modal-edit-currency-icon" class="modal-currency-icon" src="/resources/images/wallet/currencies/upload-image-icon.svg" />
+						</label>
+					
+						<input class="modal-currency-name custom-text-field" id="modal-edit-currency-name" name="name" placeholder="Название"></input>
+					
+					</div>
+					
+					<div id="modal-edit-currency-table" class="modal-currency-table">
+					
+						<div class="modal-currency-table-row">
+							<div class="modal-currency-text modal-currency-table-tcell">Tag:</div>
+							<input class="custom-text-field modal-currency-table-vcell" id="modal-edit-currency-tag" name="tag" placeholder="xxxxxx"></input>
+						</div>
+						
+						<div class="modal-currency-table-row">
+							<div class="modal-currency-text modal-currency-table-tcell">Code:</div>
+							<input class="custom-text-field modal-currency-table-vcell" id="modal-edit-currency-code" name="code" placeholder="xxxxxx"></input>
+						</div>
+						
+						<div class="modal-currency-table-row">
+							<div class="modal-currency-text modal-currency-table-tcell">F. Level:</div>
+							<input class="custom-text-field modal-currency-table-vcell" id="modal-edit-currency-flevel" name="fragmentationLevel" placeholder="xxxxxx"></input>
+						</div>
+
+						<div class="modal-currency-table-row modal-currency-table-row-multiplier" style="display: none">
+							<div class="modal-currency-text modal-currency-table-tcell">Multiplier:</div>
+							<input class="custom-text-field modal-currency-table-vcell" id="modal-edit-currency-multiplier" name="mtMultiplier" placeholder="0.00"></input>
+						</div>
+
+						<div style="display: flex;">
+					
+							<input type="submit" value="Сохранить" style="flex-grow: 3;" class="custom-button" />
+							<a style="flex-grow: 1; margin-left: 10px;" href="#" class="custom-button-cancel">Отмена</a>
+						
+						</div>
+					
+					</div>
+				
+				</form>
+				
+			</div>
+		
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+	</body>
+
+</html>

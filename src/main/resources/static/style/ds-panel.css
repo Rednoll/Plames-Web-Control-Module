@@ -1,0 +1,31 @@
+#ds-panel {
+
+	background: #2C2F33;
+}
+
+#ds-pane-top-container {
+	
+	margin-top: 4px;
+}
+
+#ds-name-logo {
+
+	position: relative;
+	flex: 1 1 auto;
+	
+	margin: 2.5px 7px 0 7px;
+	
+	width: calc(100% - 17px);
+}
+
+#ds-description-text {
+	
+	color: #7289DA;
+	margin-top: 8px;
+	line-height: calc(150% + 1px);
+}
+
+#ds-toggle-container {
+	
+	right: 7px;
+}

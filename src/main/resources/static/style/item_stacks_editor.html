@@ -1,0 +1,35 @@
+<div class="stacks-list-header">
+	
+	<img class="stack-icon" src="/resources/images/market/offers/cart-icon.svg" onclick=""/>
+	
+	<input list="items-names-datalist" class="custom-text-field stack-part stack-name stack-name-input" placeholder="хлеб"></input>
+	
+	<datalist id="items-names-datalist">
+
+	</datalist>
+	
+	<input class="custom-text-field stack-part stack-amount-prefix" value="X" readonly></input>
+	
+	<input class="custom-text-field stack-part stack-amount stack-amount-input" placeholder="10"></input>
+	
+	<img class="stack-icon" src="/resources/images/market/offers/plus-icon.svg" onclick="addStackFFD($(this).parent().parent());"/>
+	
+</div>
+
+<div class="stacks-list-container">
+	
+	<div class="item-stack-prototype" style="display: none;">
+		
+		<img class="stack-icon stack-icon-first" src="/resources/images/market/offers/cart-icon.svg" onclick=""/>
+	
+		<input class="custom-text-field stack-part stack-name" value="хлеб" style="border: 0px solid red;" readonly></input>
+	
+		<input class="custom-text-field stack-part stack-amount-prefix" value="X" readonly></input>
+	
+		<input class="custom-text-field stack-part stack-amount" value="10" style="border: 0px solid red; text-align: center;" readonly></input>
+	
+		<img class="stack-icon stack-icon-second" src="/resources/images/market/offers/close-icon.svg" onclick="removeStack($(this).parent());"/>
+		
+	</div>
+	
+</div>

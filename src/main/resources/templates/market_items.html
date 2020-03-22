@@ -1,0 +1,224 @@
+<html>
+
+	<header><!-- load by JQuery --></header>
+
+	<style>
+
+		@import url("/resources/style/market/items/item-row-container.css");
+		@import url("/resources/style/market/items/market-items-checkbox.css");
+		@import url("/resources/style/market/items/modal-background.css");
+		@import url("/resources/style/market/items/modal-add-item.css");
+		@import url("/resources/style/market/items/market-items.css");
+		@import url("/resources/style/common/price-currencies-editor.css");
+		@import url("/resources/style/default.css");
+	
+		#items-list {
+	
+			position: relative;
+	
+			display: flex;
+			flex-direction: column;
+			
+			width: 80vw;
+			
+			margin: auto;
+		}
+		
+		input::-webkit-input-placeholder {
+		
+			color: gray;
+			opacity: 0.35;
+		}
+
+	</style>
+		
+	<body onload="init();" style="padding-top: 85px; background: #F2F5F7;">
+	
+		<script src="/resources/scripts/market/items/item_ajax.js?1"></script>
+		<script src="/resources/scripts/market/items/market_items.js?1"></script>
+		<script src="/resources/scripts/common/price_currencies_editor.js?1"></script>
+
+		<div id="items-list">
+
+			<div class="item-container list-header">
+			
+				<div class="item-row-container">
+				
+					<img class="item-row-icon" style="margin: 0px 0.8vw 0px 0.5vw;" src="/resources/images/market/items/search-icon.svg" onclick="toggleSearch();"/>
+					
+					<div class="item-row-text item-row-name">Название</div>
+					
+					<div class="item-row-text item-row-id">Идентификатор</div>
+					
+					<div class="item-row-text item-row-tan">Целевое приложение</div>
+					
+					<div class="item-row-text item-row-status">Статус</div>
+
+					<div class="item-row-sub-container" style="max-width: 48px;">
+						<img class="item-row-icon" src="/resources/images/market/items/plus-icon.svg" onclick="location.href='/market/items#modal-background-add-item'"/>
+					</div>
+				
+				</div>
+			
+			</div>
+			
+			<div id="item-search-row" class="item-container" style="opacity: 0;" data-opened=false>
+			
+				<div class="item-row-container">
+				
+					<img class="item-row-icon" style="margin: 0px 0.8vw 0px 0.5vw; opacity: 0;" src="/resources/images/market/items/search-icon.svg"/>
+					
+					<input id="item-search-name" class="item-row-text custom-text-field item-row-name" placeholder="хлеб" oninput="sendSearchRequest();"></input>
+					
+					<input id="item-search-id" class="item-row-text custom-text-field item-row-id" placeholder="10" oninput="sendSearchRequest();"></input>
+					
+					<input id="item-search-tan" class="item-row-text custom-text-field item-row-tan" placeholder="mc" oninput="sendSearchRequest();"></input>
+					
+					<div class="item-row-text item-row-status" style="opacity: 0;">Статус</div>
+
+					<div class="item-row-sub-container" style="max-width: 48px; opacity: 0;">
+						<img class="item-row-icon"/>
+					</div>
+				
+				</div>
+			
+			</div>
+			
+			<div id="item-prototype" style="display: none;" data-opened=false >
+			
+				<div class="item-row-container">
+					
+					<img class="item-row-icon" style="margin: 0px 0.8vw 0px 0.5vw;"/>
+
+					<div class="item-row-text item-row-name"></div>
+					
+					<div class="item-row-text item-row-id"></div>
+					
+					<div class="item-row-text item-row-tan"></div>
+					
+					<div class="item-row-text item-row-status"></div>
+
+					<div class="item-row-sub-container" style="max-width: 48px;">
+						
+						<input type="checkbox" class="item-status-toggle" style="display:none" onclick="ajaxItemActiveSave(this);"/>
+						<label class="item-status-toggle-label"><span></span></label>
+					
+					</div>
+				
+				</div>
+				
+				<div class="item-settings-container">
+					
+					<p class = "custom-text item-settings-description">Сбор данных</p>
+					
+					<div class="item-settings-buttons-container">
+						
+						<a class="custom-button item-edit-button" onclick="openModalEditItem($(this).closest('.item-container').attr('data-item-id'));">Редактировать</a>
+						
+						<a class="custom-button-cancel item-delete-button" onclick="deleteItemById($(this).closest('.item-container').attr('data-item-id')); setTimeout(()=> location.reload(), 500);">Удалить</a>
+				
+					</div>
+				
+				</div>
+				
+			</div>
+
+			<div class="item-container">
+			
+				<div class="item-row-container" style="justify-content: center;">
+					
+					<a id="scroll-prevent-page" style="flex-grow: 0; width: 4vw; margin-right: 2vw;" class="custom-sub-button" onclick="preventPage();">&lt;</a>
+					
+					<input id="scroll-page-field" style="flex-grow: 0; width: 8vw; text-align: center;" class="custom-text-field" onclick="goPage($(this).val());" value="0"></input>
+					
+					<a id="scroll-next-page" style="flex-grow: 0; width: 4vw; margin-left: 2vw;" class="custom-sub-button" onclick="nextPage();">&gt;</a>
+					
+				</div>
+				
+			</div>
+
+		</div>
+		
+		<div id="modal-background-add-item" class="modal-background">
+			
+			<div id="modal-add-item" class="modal">
+			
+				<div id="modal-add-item-top-container" class="modal-item-top-container">
+					
+					<img id="modal-add-item-icon" class="modal-item-icon" src="/resources/images/market/items/item-icon.svg" />
+				
+					<input class="modal-item-name custom-text-field" id="modal-add-item-name" placeholder="Название"></input>
+				
+				</div>
+				
+				<div id="modal-add-item-table" class="modal-item-table">
+				
+					<div class="modal-item-table-row">
+						<div class="modal-item-text modal-item-table-tcell">T.A.N:</div>
+						<input class="custom-text-field modal-item-table-vcell" id="modal-add-item-tan" placeholder="xxxxxx"></input>
+					</div>
+					
+					<div class="modal-item-table-row">
+						<div class="modal-item-text modal-item-table-tcell">Metadata:</div>
+						<input class="custom-text-field modal-item-table-vcell" id="modal-add-item-metadata" placeholder="xxxxxx"></input>
+					</div>
+					
+					<div id="add-currency-list" class="modal-item-table-row currencies-list"><!-- load by JQuery --></div>
+					
+					<div style="display: flex;">
+				
+						<a style="flex-grow: 3;" class="custom-button" onclick="createItem();">Создать</a>
+						<a style="flex-grow: 1; margin-left: 10px;" href="#" class="custom-button-cancel">Отмена</a>
+					
+					</div>
+				
+				</div>
+				
+			</div>
+		
+		</div>
+		
+		<div id="modal-background-edit-item" class="modal-background">
+			
+			<div id="modal-edit-item" class="modal">
+			
+				<div id="modal-edit-item-top-container" class="modal-item-top-container">
+					
+					<img id="modal-edit-item-icon" class="modal-item-icon" src="/resources/images/market/items/item-icon.svg" />
+				
+					<input class="modal-item-name custom-text-field" id="modal-edit-item-name" placeholder="Название"></input>
+				
+				</div>
+				
+				<div id="modal-edit-item-table" class="modal-item-table">
+				
+					<div class="modal-item-table-row">
+						<div class="modal-item-text modal-item-table-tcell">T.A.N:</div>
+						<input class="custom-text-field modal-item-table-vcell" id="modal-edit-item-tan" placeholder="xxxxxx"></input>
+					</div>
+					
+					<div class="modal-item-table-row">
+						<div class="modal-item-text modal-item-table-tcell">Metadata:</div>
+						<input class="custom-text-field modal-item-table-vcell" id="modal-edit-item-metadata" placeholder="xxxxxx"></input>
+					</div>
+					
+					<div id="edit-currencies-list" class="modal-item-table-row currencies-list"><!-- load by JQuery --></div>
+					
+					<div style="display: flex;">
+				
+						<a style="flex-grow: 3;" class="custom-button" onclick="saveModalEditItem();">Сохранить</a>
+						<a style="flex-grow: 1; margin-left: 10px;" href="#" class="custom-button-cancel">Отмена</a>
+					
+					</div>
+				
+				</div>
+				
+			</div>
+		
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+	</body>
+
+</html>
