@@ -1,4 +1,4 @@
-package com.inwaiders.plames.modules.webcontroller.spring.config;
+package enterprises.inwaiders.plames.modules.webcontroller.spring.config;
 
 import org.apache.catalina.connector.Connector;
 import org.springframework.beans.factory.annotation.Autowired;

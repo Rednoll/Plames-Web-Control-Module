@@ -1,4 +1,4 @@
-package com.inwaiders.plames.modules.webcontroller.web;
+package enterprises.inwaiders.plames.modules.webcontroller.web;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.inwaiders.plames.domain.messenger.impl.MessengerImpl;
+import enterprises.inwaiders.plames.domain.messenger.impl.MessengerImpl;
 
 @Controller
 public class MainPageController {

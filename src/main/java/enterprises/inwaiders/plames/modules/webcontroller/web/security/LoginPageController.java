@@ -1,4 +1,4 @@
-package com.inwaiders.plames.modules.webcontroller.web.security;
+package enterprises.inwaiders.plames.modules.webcontroller.web.security;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

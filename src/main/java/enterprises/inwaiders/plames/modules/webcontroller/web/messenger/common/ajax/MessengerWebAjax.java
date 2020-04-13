@@ -1,4 +1,4 @@
-package com.inwaiders.plames.modules.webcontroller.web.messenger.common.ajax;
+package enterprises.inwaiders.plames.modules.webcontroller.web.messenger.common.ajax;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.inwaiders.plames.api.messenger.Messenger;
-import com.inwaiders.plames.api.messenger.profile.UserProfile;
-import com.inwaiders.plames.domain.messenger.impl.MessengerImpl;
+
+import enterprises.inwaiders.plames.api.messenger.Messenger;
+import enterprises.inwaiders.plames.api.messenger.profile.UserProfile;
+import enterprises.inwaiders.plames.domain.messenger.impl.MessengerImpl;
 
 @RestController
 @RequestMapping("web/controller/ajax/messenger")
