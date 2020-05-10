@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SpringMvcConfig implements WebMvcConfigurer {
 
     @Autowired
-    private Environment environment;
+    private Environment env;
     
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
     	
@@ -29,15 +29,21 @@ public class SpringMvcConfig implements WebMvcConfigurer {
 	public ServletWebServerFactory servletContainer() {
 		
 		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
-			tomcat.addAdditionalTomcatConnectors(createStandardConnector());
 		
+			String port = env.getProperty("server.http.port");
+			
+			if(port != null) {
+			
+				tomcat.addAdditionalTomcatConnectors(createStandardConnector(Integer.parseInt(env.getProperty("server.http.port"))));
+			}
+			
 		return tomcat;
 	}
 
-	private Connector createStandardConnector() {
+	private Connector createStandardConnector(int port) {
 		
 		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-			connector.setPort(Integer.parseInt(environment.getProperty("server.http.port")));
+			connector.setPort(port);
 		
 		return connector;
 	}
